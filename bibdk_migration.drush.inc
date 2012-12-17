@@ -14,13 +14,13 @@ function bibdk_migration_drush_command()
   $items = array();
 
   $items['bibdk-deploy-nodes'] = array(
-    'description' => "Install Ding Deploy on the server.",
+    'description' => "Deploy nodes from one installation to another",
     'arguments' => array(
-      'source' => 'The site to export the nodes from',
-      'destination' => 'The site to import the nodes to',
+      'source' => 'The site-alias to export the nodes from',
+      'destination' => 'The site-alias to import the nodes to',
     ),
     'examples' => array(
-      'drush bibdk-deploy-nodes @staging' => 'Move nodes to the @staging server.',
+      'drush bibdk-deploy-nodes @source @destination --type=bibdk_article, ' => 'Move bibdk_articles from @source to @destination.',
     ),
     'options' => array(
       'type' => 'types to export',
@@ -37,6 +37,14 @@ function bibdk_migration_drush_command()
 function bib_migration_drush_help($section)
 {
 // TODO Write help instructions
+  switch ($section) {
+    case 'meta:bibdk_migration:title':
+      return dt('Bibliotek.dk migration');
+    case 'meta:ding_deploy:summary':
+      return dt('Deploy nodes to installations');
+    case 'drush:bibdk-deploy-nodes':
+      return dt("Move nodes from one installation to another. E.g. ");
+  }
 }
 
 /**
